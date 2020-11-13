@@ -8,37 +8,38 @@ namespace ConsoleApplication1
 {
     class Program
     {
-        private AdministraCiudad admCiudades = new AdministraCiudad();
+        AdministraCiudad admCiudades = new AdministraCiudad();
         static void Main(string[] args)
         {
-            Program c = new Program();
-            PresentacionCiudad presentacion;
+            Program programa = new Program();
+            PresentacionCiudad presentacion = new PresentacionCiudad(programa.admCiudades);
             bool a = false;
-            int b = 0;
-            Console.WriteLine("*************MENÚ*************");
+
             do
             {
+                Console.WriteLine("****************MENÚ****************");
                 Console.WriteLine("Elija una opción:");
                 Console.WriteLine("1.- Agregar Ciudad de Destino\n"
                     + "2.- Consultar Ciudades de Destino\n"
                     + "3.- Consulta Individual\n"
                     + "4.- Modificar Costo\n"
                     + "5.- Salir");
-                b = Convert.ToInt32(Console.ReadLine());
-                switch (b)
+                int opcion = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
+                switch (opcion)
                 {
                     case 1:
-                        presentacion = new PresentacionCiudad(c.admCiudades);
                         presentacion.AltaDestinos();
+                        Console.WriteLine();
                         break;
                     case 2:
-                        Console.WriteLine("---------------------------------------------------");
-                        Console.WriteLine("Ciudades:");
-                        presentacion = new PresentacionCiudad(c.admCiudades);
                         presentacion.MuestraCiudades();
-                        Console.WriteLine("---------------------------------------------------");
+                        break;
+                    case 3:
+                        presentacion.CiudadClave();
                         break;
                     case 4:
+                        presentacion.CambiarPrecio();
                         break;
                     case 5:
                         a = true;
