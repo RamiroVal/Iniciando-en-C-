@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
@@ -55,7 +51,7 @@ namespace ConsoleApplication1
 
         public string ToString()
         {
-            return "Ciudad: " + nombreCiudad + ", Tiempo del trayecto: " + tiempoTrayecto + ", Costo: $" + costo;
+            return $"Ciudad: {nombreCiudad}, Tiempo del trayecto: {tiempoTrayecto}, Costo: ${String.Format("{0:0.00}", costo)}";
         }
     }
 }

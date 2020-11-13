@@ -1,19 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
     class Program
     {
-        AdministraCiudad admCiudades = new AdministraCiudad();
-        static void Main(string[] args)
+        // Objetos
+        private AdministraCiudad admCiudades;
+        private PresentacionCiudad pcPresentacion;
+
+        // Constructor que asigna el objeto admCiudades a pcPresentacion
+        public Program()
+        {
+            admCiudades = new AdministraCiudad();
+            pcPresentacion = new PresentacionCiudad(admCiudades);
+        }
+
+        // Main
+        public static void Main(string[] args)
         {
             Program programa = new Program();
-            PresentacionCiudad presentacion = new PresentacionCiudad(programa.admCiudades);
-            bool a = false;
+            int opcion = 0;
 
             do
             {
@@ -24,28 +30,31 @@ namespace ConsoleApplication1
                     + "3.- Consulta Individual\n"
                     + "4.- Modificar Costo\n"
                     + "5.- Salir");
-                int opcion = Convert.ToInt32(Console.ReadLine());
+                opcion = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine();
                 switch (opcion)
                 {
                     case 1:
-                        presentacion.AltaDestinos();
+                        programa.pcPresentacion.AltaDestinos();
                         Console.WriteLine();
                         break;
                     case 2:
-                        presentacion.MuestraCiudades();
+                        programa.pcPresentacion.MuestraDestinos();
                         break;
                     case 3:
-                        presentacion.CiudadClave();
+                        programa.pcPresentacion.ViajeClave();
                         break;
                     case 4:
-                        presentacion.CambiarPrecio();
+                        programa.pcPresentacion.CambiarPrecio();
                         break;
                     case 5:
-                        a = true;
+                        opcion = 5;
+                        break;
+                    default:
+                        Console.WriteLine("****Opción no válida (1 - 5)****\n");
                         break;
                 }
-            } while (a == false);
+            } while (opcion != 5);
         }
     }
 }
