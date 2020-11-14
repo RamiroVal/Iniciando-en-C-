@@ -52,14 +52,74 @@ namespace ConsoleApplication1
             return ciudades;
         }
 
-        // Devuelve los datos a un destino determinado por su clave.
+        // Método para obtener los datos de los viajes con el costo menor o igual dado.
+        public string[,] MenorA(double valor, int opcion)
+        {
+            string[,] ciudades = new string[CountMenoresA(valor, opcion), 4];
+            int i = 0;
+            foreach(KeyValuePair<int, CiudadDestino> item in dicDestinos)
+            {
+                if (item.Value.pCosto <= valor && opcion == 6)
+                {
+                    ciudades[i, 0] = Convert.ToString(item.Key);
+                    ciudades[i, 1] = item.Value.pNombreCiudad;
+                    ciudades[i, 2] = Convert.ToString(item.Value.pTiempoTrayecto);
+                    ciudades[i, 3] = String.Format("{0:0.00}", item.Value.pCosto);
+                    i++;
+                }
+                if (item.Value.pTiempoTrayecto <= valor && opcion == 7)
+                {
+                    ciudades[i, 0] = Convert.ToString(item.Key);
+                    ciudades[i, 1] = item.Value.pNombreCiudad;
+                    ciudades[i, 2] = Convert.ToString(item.Value.pTiempoTrayecto);
+                    ciudades[i, 3] = String.Format("{0:0.00}", item.Value.pCosto);
+                    i++;
+                }
+            }
+            return ciudades;
+        }
+
+        // Método para obtener el número de viajes con el costo menor o igual dado.
+        private int CountMenoresA(double valor, int opcion)
+        {
+            int i = 0;
+            foreach (KeyValuePair<int, CiudadDestino> item in dicDestinos)
+            {
+                if(opcion == 6 && item.Value.pCosto <= valor)
+                {
+                    i++;
+                }
+                if (opcion == 7 && item.Value.pTiempoTrayecto <= valor)
+                {
+                    i++;
+                }
+            }
+            return i;
+        }
+
+        // Devuelve los datos de un destino determinado por su clave.
         public string DatosCiudad(int clave)
         {
-            return dicDestinos[clave].ToString();
+            return $"Clave: {clave}, {dicDestinos[clave].ToString()}";
+        }
+
+        // Devuelve los datos de un destino determinado por su nombre.
+        public string DatosCiudadNombre(string nombreCiudad)
+        {
+            string datos = "";
+            foreach(KeyValuePair<int, CiudadDestino> item in dicDestinos)
+            {
+                if (item.Value.pNombreCiudad.Equals(nombreCiudad))
+                {
+                    datos = $"Clave: {item.Key}, {item.Value.ToString()}";
+                    break;
+                }
+            }
+            return datos;
         }
 
         // Cambia el precio de viaje a una ciudad determinada por su nombre.
-        public bool CambiaPrecioPorNombre(string nombre, double precio)
+        public void CambiaPrecioPorNombre(string nombre, double precio)
         {
             for (int i = 0; i < dicDestinos.Count; i++)
             {
@@ -68,7 +128,6 @@ namespace ConsoleApplication1
                 if (ciudad.pNombreCiudad.Equals(nombre))
                 {
                     ciudad.pCosto = precio;
-                    return true;
                 }
             }
             /*foreach (KeyValuePair<int, CiudadDestino> item in dicDestinos)
@@ -79,21 +138,38 @@ namespace ConsoleApplication1
                     return true;
                 }
             }*/
-            return false;
         }
 
         // Cambia el precio de viaje a una ciudad determinada por su clave.
-        public bool CambiaPrecioPorClave(int clave, double precio)
+        public void CambiaPrecioPorClave(int clave, double precio)
         {
-            if (dicDestinos.ContainsKey(clave))
-            {
-                dicDestinos[clave].pCosto = precio;
-                return true;
-            } else
-            {
-                return false;
-            }
+            dicDestinos[clave].pCosto = precio;
+        }
 
+        // Da el nombre de la ciudad de destino por su clave.
+        public string NombreDestino(int clave)
+        {
+            return dicDestinos[clave].pNombreCiudad;
+        }
+        
+        // Cambia el tiempo del trayecto a un viaje determinado por su nombre.
+        public void CambiaTiempoPorNombre(string nombre, double tiempo)
+        {
+            for (int i = 0; i < dicDestinos.Count; i++)
+            {
+                KeyValuePair<int, CiudadDestino> kvp = dicDestinos.ElementAt(i);
+                CiudadDestino ciudad = kvp.Value;
+                if (ciudad.pNombreCiudad.Equals(nombre))
+                {
+                    ciudad.pTiempoTrayecto = tiempo;
+                }
+            }
+        }
+
+        // Cambia el tiempo del trayecto a un viaje determinado por su clave.
+        public void CambiaTiempoPorClave(int clave, double tiempo)
+        {
+            dicDestinos[clave].pTiempoTrayecto = tiempo;
         }
 
         // Propiedad para determinar si dicDestinos esta vacía o no.
@@ -118,6 +194,6 @@ namespace ConsoleApplication1
             {
                 return dicDestinos.Count;
             }
-        }
+        } 
     }
 }

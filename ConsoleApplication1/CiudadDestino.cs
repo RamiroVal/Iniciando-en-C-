@@ -4,10 +4,12 @@ namespace ConsoleApplication1
 {
     class CiudadDestino
     {
+        // Atributos de CiudadDestino.
         private string nombreCiudad;
         private double tiempoTrayecto;
         private double costo;
 
+        //Constructor.
         public CiudadDestino(string nombreCiudad, double tiempoTrayecto, double costo)
         {
             this.nombreCiudad = nombreCiudad;
@@ -15,6 +17,7 @@ namespace ConsoleApplication1
             this.costo = costo;
         }
 
+        // Propiedad que obtiene y establece nombreCiudad.
         public string pNombreCiudad
         {
             get
@@ -26,6 +29,8 @@ namespace ConsoleApplication1
                 nombreCiudad = value;
             }
         }
+
+        // Propiedad que obtiene y establece tiempoTrayecto.
         public double pTiempoTrayecto
         {
             get
@@ -37,6 +42,8 @@ namespace ConsoleApplication1
                 tiempoTrayecto = value;
             }
         }
+
+        // Propiedad que obtiene y establece costo.
         public double pCosto
         {
             get
@@ -49,6 +56,7 @@ namespace ConsoleApplication1
             }
         }
 
+        override
         public string ToString()
         {
             return $"Ciudad: {nombreCiudad}, Tiempo del trayecto: {tiempoTrayecto}, Costo: ${String.Format("{0:0.00}", costo)}";

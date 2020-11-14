@@ -18,7 +18,7 @@ namespace ConsoleApplication1
         }
 
         // Valida claves
-        public static int ValidaClave()
+        public static int ValidaClave(string opcion)
         {
             int a = -1;
             while (a < 0)
@@ -28,12 +28,12 @@ namespace ConsoleApplication1
                     a = Convert.ToInt32(Console.ReadLine());
                     if (a < 0)
                     {
-                        Console.WriteLine("Ingrese clave válida");
+                        Console.WriteLine($"Ingrese {opcion} válida");
                     }
                 }
                 catch (FormatException e)
                 {
-                    Console.WriteLine("Ingrese clave válida");
+                    Console.WriteLine($"Ingrese {opcion} válida");
                 }
 
             }
